@@ -16,3 +16,19 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+//variable des flèches
+let flecheGauche = document.querySelector (".arrow_left")
+let flecheDroite = document.querySelector (".arrow_right")
+
+//curseur des flèches en pointeur 
+document.querySelector(".arrow_left").style.cursor = "pointer";
+document.querySelector(".arrow_right").style.cursor = "pointer";
+
+//eventListener des flèches
+flecheGauche.addEventListener ("click", () => {
+	console.log ("Tourner les images vers la gauche")
+})
+
+flecheDroite.addEventListener ("click", () => {
+	console.log ("Tourner les images vers la droite")
+})
