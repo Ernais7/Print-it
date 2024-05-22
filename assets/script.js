@@ -16,6 +16,7 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+
 //variable des flèches
 let flecheGauche = document.querySelector (".arrow_left")
 let flecheDroite = document.querySelector (".arrow_right")
@@ -24,74 +25,11 @@ let flecheDroite = document.querySelector (".arrow_right")
 document.querySelector(".arrow_left").style.cursor = "pointer";
 document.querySelector(".arrow_right").style.cursor = "pointer";
 
-//eventListener des flèches
-// flecheGauche.addEventListener ("click", () => {
-// 	console.log ("Tourner les images vers la gauche")
-// })
-
-// flecheDroite.addEventListener ("click", () => {
-// 	let compt = 0;
-	
-// 	if (div.classList.contains("point"+compt)) {
-// 		div.classList.remove("dot_selected");
-// 	} else {
-// 		div.classList.add("dot_selected");
-// 	}    
-// 	console.log ("Tourner les images vers la droite")
-// 	compt++
-// })
-
-
-let nextIndex = 0
-flecheGauche.addEventListener('click', () => {
-	// Sélectionner tous les éléments avec la classe 'dot'
-	const dots = document.querySelectorAll('.dot');
-	// Trouver l'index de l'élément actuellement sélectionné
-	let currentIndex = -1;
-	dots.forEach((dot, index) => {
-		if (dot.classList.contains('dot_selected')) {
-			currentIndex = index;
-		}
-	});
-
-	// Enlever la classe 'dot_selected' de l'élément actuel
-	if (currentIndex !== -1) {
-		dots[currentIndex].classList.remove('dot_selected');
-	}
-
-	// Ajouter la classe 'dot_selected' à l'élément précédent
-	let prevIndex = (currentIndex - 1 + dots.length) % dots.length;
-	console.log(currentIndex,"currentindex")
-	console.log(currentIndex - 1 + dots.length, "index")
-	console.log(dots.length,"longueur tableau")
-	console.log(prevIndex,"le reste")
-	dots[prevIndex].classList.add('dot_selected');
-});
-
-flecheDroite.addEventListener('click', () => {
-	// Sélectionner tous les éléments avec la classe 'dot'
-	const dots = document.querySelectorAll('.dot');
-	// Trouver l'index de l'élément actuellement sélectionné
-	let currentIndex = -1;
-	dots.forEach((dot, index) => {
-		if (dot.classList.contains('dot_selected')) {
-			currentIndex = index;
-		}
-	});
-
-	// Enlever la classe 'dot_selected' de l'élément actuel
-	if (currentIndex !== -1) {
-		dots[currentIndex].classList.remove('dot_selected');
-	}
-
-	// Ajouter la classe 'dot_selected' à l'élément suivant
-	let nextIndex = (currentIndex + 1) % dots.length;
-	dots[nextIndex].classList.add('dot_selected');
-});
+const mainImage = document.querySelector(".banner-img");
+const tagLine = document.querySelector("#banner p");
+let divHtml = document.querySelector (".dots")
 
 //bullets points 
-
-let divHtml = document.querySelector (".dots")
 
 for (let i = 0; i < slides.length; i++) {
 	const div = document.createElement("div");
@@ -101,4 +39,59 @@ for (let i = 0; i < slides.length; i++) {
 	const point0 = document.querySelector(".point0")
 	point0.classList.add("dot_selected")
 }
+
+//Flèche de gauche 
+flecheGauche.addEventListener('click', () => {
+	const dots = document.querySelectorAll('.dot');
+	// Trouver l'index de l'élément actuellement sélectionné
+	let currentIndex = -1;
+	for (let i = 0; i < dots.length; i++) {
+	const dot = dots[i];
+	if (dot.classList.contains('dot_selected')) {
+		currentIndex = i;
+		break;
+	}
+	}
+	
+	if (currentIndex !== -1) {
+		dots[currentIndex].classList.remove('dot_selected');
+	}
+	
+	let prevIndex = (currentIndex - 1 + dots.length) % dots.length;
+	dots[prevIndex].classList.add('dot_selected');
+	//Image et Tagline tableau 
+	mainImage.src = slides[prevIndex].image;
+    tagLine.innerHTML = slides[prevIndex].tagLine;
+});
+
+//Flèche de droite
+flecheDroite.addEventListener('click', () => {
+	const dots = document.querySelectorAll('.dot');
+	const imageHtml = document.getElementById("banner-img");
+	// Trouver l'index de l'élément actuellement sélectionné
+	let currentIndex = -1;
+	for (let i = 0; i < dots.length; i++) {
+		const dot = dots[i];
+		const imageSlides = slides[i];
+		imageSlides.src = slides[i].src;
+		console.log(slides[i])
+		if (dot.classList.contains('dot_selected')) {
+			currentIndex = i;
+			break;
+		}
+		}
+
+	if (currentIndex !== -1) {
+		dots[currentIndex].classList.remove('dot_selected');
+	}
+
+	let nextIndex = (currentIndex + 1) % dots.length;
+	dots[nextIndex].classList.add('dot_selected');
+	//Image et Tagline tableau 
+	mainImage.src = slides[nextIndex].image;
+    tagLine.innerHTML = slides[nextIndex].tagLine;
+});
+
+
+
 
